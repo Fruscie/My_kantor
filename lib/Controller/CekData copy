@@ -1,0 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:my_kantor/Controller/Alert.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_database/firebase_database.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
+Future<void> cekuserpassw(BuildContext context, String email, String pass) async {
+  Firebase.initializeApp();
+  if (email.isNotEmpty && (pass.length > 6)) {
+    await _auth.signInWithEmailAndPassword(email: email, password: pass);
+    final FirebaseUser user = result.user;
+  } else {
+    if (email.isEmpty) {
+      return showAlertDialog(context, "Please Enter Your email !");
+    } else {
+      return showAlertDialog(
+          context, "Your password is less than 6 characters !");
+    }
+  }
+}

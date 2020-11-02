@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "929880080265",
+    "firebase_url": "https://fruscie.firebaseio.com",
+    "project_id": "fruscie",
+    "storage_bucket": "fruscie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929880080265:android:001a54906a79096835ab58",
+        "android_client_info": {
+          "package_name": "com.example.my_kantor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929880080265-ktd7699n20lmg510tqj4p08tv23bqokc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy_9TV3As68K3p33dMfLv3zDvNnVdoYfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929880080265-ktd7699n20lmg510tqj4p08tv23bqokc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
