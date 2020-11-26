@@ -1,28 +1,263 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:my_kantor/Widget/Button.dart';
 
-class Regist extends StatelessWidget {
+class Regist extends StatefulWidget {
+  @override
+  _RegistState createState() => _RegistState();
+}
+
+class _RegistState extends State<Regist> {
+  List _listDivisi = [
+    "CEO",
+    "Admin",
+    "Accounting",
+    "Manager",
+    "HRD",
+  ];
+  List _listJenisKelamin = [
+    "Laki - Laki",
+    "Perempuan",
+  ];
+  final formKey = new GlobalKey<FormState>();
+  String nama, divisi, noHp, email, password, gender, jenisKelamin;
+  var namaControl,
+      noHpControl,
+      emailControl,
+      passwordControl = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        resizeToAvoidBottomPadding: false,
+    return Scaffold(
+        // resizeToAvoidBottomPadding: false,
         backgroundColor: Theme.of(context).backgroundColor,
-        appBar: new AppBar(
-          title: new Center(
-            child: new Text("MyKantor",
-                style: new TextStyle(fontSize: 30.0, color: Colors.white)),
+        appBar: AppBar(
+          actions: [
+            Padding(
+                padding: EdgeInsets.only(right: 10.0),
+                child: GestureDetector(
+                  onTap: () {
+                    int count = 0;
+                    Navigator.of(context).popUntil((_) => count++ >= 2);
+                  },
+                  child: Icon(
+                    Icons.exit_to_app_outlined,
+                    size: 30.0,
+                  ),
+                ))
+          ],
+          automaticallyImplyLeading: false,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 30.0),
+            child: Center(
+              child: Text("MyKantor",
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    color: Colors.white,
+                    fontFamily: 'Louis',
+                  )),
+            ),
           ),
         ),
-        body: new Center(
-            child: new Container(
-                //id=kotak
-                color: Colors.blue[400],
-                width: 200.0,
-                height: 100.0,
-                child: new Center(
-                    child: new Icon(
-                  Icons.ac_unit,
-                  color: Colors.yellow[200],
-                  size: 70.0,
-                )))));
+        body: Form(
+          key: formKey,
+          child: AnimatedContainer(
+            decoration: BoxDecoration(),
+            // padding: EdgeInsets.all(20.0),
+            duration: const Duration(milliseconds: 300),
+            alignment: Alignment.topCenter,
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width / 25),
+            child: SingleChildScrollView(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: children()),
+            ),
+          ),
+        ));
+  }
+
+  List<Widget> children() {
+    return <Widget>[
+      TextFormField(
+        cursorColor: Theme.of(context).cursorColor,
+        maxLength: 20,
+        controller: namaControl,
+        decoration: InputDecoration(
+          labelText: "Nama : ",
+          labelStyle: TextStyle(
+            fontSize: 20,
+            color: Color(0xFF6200EE),
+          ),
+          helperText: "example : ardhito",
+          suffixIcon: IconButton(
+              icon: Icon(Icons.clear), onPressed: () => namaControl.clear()),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF6200EE)),
+          ),
+        ),
+        validator: (value) {
+          return value.isEmpty ? "*Required" : null;
+        },
+        onChanged: (value) {
+          setState(() {
+            nama = value;
+          });
+        },
+      ),
+      TextFormField(
+        cursorColor: Theme.of(context).cursorColor,
+        maxLength: 20,
+        controller: noHpControl,
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ],
+        decoration: InputDecoration(
+          labelText: "No HP : ",
+          labelStyle: TextStyle(
+            fontSize: 20,
+            color: Color(0xFF6200EE),
+          ),
+          helperText: "example : 087xxxxx",
+          suffixIcon: IconButton(
+              icon: Icon(Icons.clear), onPressed: () => noHpControl.clear()),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF6200EE)),
+          ),
+        ),
+        validator: (value) {
+          return value.isEmpty ? "*Required" : null;
+        },
+        onChanged: (value) {
+          setState(() {
+            noHp = value;
+          });
+        },
+      ),
+      Container(
+        height: 55,
+        child: DropdownButton(
+          elevation: 16,
+          isExpanded: true,
+          value: jenisKelamin,
+          underline: Container(
+            height: 1,
+            color: Color(0xFF6200EE),
+          ),
+          iconEnabledColor: Color(0xFF595959),
+          items: _listJenisKelamin.map((value) {
+            return DropdownMenuItem(
+              child: Text(value),
+              value: value,
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              jenisKelamin = value;
+            });
+          },
+          hint: Text(
+            "Jenis Kelamin",
+            style: TextStyle(color: Color(0xFF6200EE), fontSize: 17),
+          ),
+        ),
+      ),
+      Container(
+        height: 55,
+        // padding: EdgeInsets.only(top:5.0, bottom:5.0),
+        child: DropdownButton(
+          isExpanded: true,
+          value: divisi,
+          underline: Container(
+            height: 1,
+            color: Color(0xFF6200EE),
+          ),
+          iconEnabledColor: Color(0xFF595959),
+          items: _listDivisi.map((value) {
+            return DropdownMenuItem(
+              child: Text(value),
+              value: value,
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              divisi = value;
+            });
+          },
+          hint: Text(
+            "Divisi",
+            style: TextStyle(color: Color(0xFF6200EE), fontSize: 17),
+          ),
+        ),
+      ),
+      TextFormField(
+        cursorColor: Theme.of(context).cursorColor,
+        maxLength: 20,
+        controller: emailControl,
+        decoration: InputDecoration(
+          labelText: "Email : ",
+          labelStyle: TextStyle(
+            fontSize: 20,
+            color: Color(0xFF6200EE),
+          ),
+          helperText: "example : test@gmail.com",
+          suffixIcon: IconButton(
+              icon: Icon(Icons.clear), onPressed: () => emailControl.clear()),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF6200EE)),
+          ),
+        ),
+        validator: (value) {
+          return value.isEmpty || !value.contains('@gmail.com')
+              ? "*Please enter a valid email address!!"
+              : null;
+        },
+        onChanged: (value) {
+          setState(() {
+            email = value;
+          });
+        },
+      ),
+      TextFormField(
+        obscureText: true,
+        cursorColor: Theme.of(context).cursorColor,
+        maxLength: 20,
+        controller: passwordControl,
+        decoration: InputDecoration(
+          labelText: "Password : ",
+          labelStyle: TextStyle(
+            fontSize: 20,
+            color: Color(0xFF6200EE),
+          ),
+          suffixIcon: IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: () => passwordControl.clear()),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF6200EE)),
+          ),
+        ),
+        validator: (value) {
+          return value.length < 6
+              ? "*Your password less than 6 characters!!"
+              : null;
+        },
+        onChanged: (value) {
+          setState(() {
+            password = value;
+          });
+        },
+      ),
+      ButtonState(
+        formKey: formKey,
+        label: "Sign Up",
+        email: email,
+        password: password,
+        divisi: divisi,
+        nama: nama,
+        noHp: noHp,
+        jenisKelamin: jenisKelamin,
+      )
+    ];
   }
 }

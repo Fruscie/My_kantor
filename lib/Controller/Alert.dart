@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 
 
-showAlertDialog(BuildContext context,String Konteks) {
+showAlertDialog(BuildContext context,String konteks) {
   // set up the button
   Widget okButton = FlatButton(
-    child: Text("OK"),
+    child : Text("OK"),
     onPressed: () {
       Navigator.pop(context);
     },
@@ -15,7 +15,7 @@ showAlertDialog(BuildContext context,String Konteks) {
   AlertDialog alert = AlertDialog(
     backgroundColor: Theme.of(context).backgroundColor,
     title: Text("Alert!!!"),
-    content: Text(Konteks),
+    content: Text(konteks),
     actions: [
       okButton,
     ],
