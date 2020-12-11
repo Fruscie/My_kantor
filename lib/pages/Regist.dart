@@ -193,7 +193,6 @@ class _RegistState extends State<Regist> {
       ),
       TextFormField(
         cursorColor: Theme.of(context).cursorColor,
-        maxLength: 20,
         controller: emailControl,
         decoration: InputDecoration(
           labelText: "Email : ",

@@ -1,38 +1,28 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-// import 'package:firebase_database/firebase_database.dart';
-//
-class Home extends StatefulWidget {
-  final user;
+// ignore: must_be_immutable
+class HomePage extends StatefulWidget {
+  User user;
   // final int clientID;
-  Home(this.user);
+  HomePage(this.user);
   @override
-  _HomeState createState() => _HomeState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       Scaffold(
-          resizeToAvoidBottomPadding: false,
-          backgroundColor: Theme.of(context).backgroundColor,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Center(
-              child: Text("MyKantor",
-                  style: TextStyle(fontSize: 30.0, color: Colors.white)),
-            ),
-          ),
           body: Center(
-              child: Container(
-            //id=kotak
-            color: Colors.blue[400],
-            width: 200.0,
-            height: 100.0,
-            child: Text(widget.user),
-          )))
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            child: Text('HI ' + widget.user.displayName.toString(),style: TextStyle(fontSize:30),))
+        ],
+      )))
     ]);
   }
 }

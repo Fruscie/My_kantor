@@ -12,7 +12,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String _id, _pass, status, pwadmin, emailadmin;
   final _formKeys = new GlobalKey<FormState>();
-  // final databaseReference = FirebaseDatabase.instance.reference();
   final _formKey = new GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -40,12 +39,7 @@ class _LoginPageState extends State<LoginPage> {
               child: SingleChildScrollView(
                 child: AnimatedContainer(
                   width: displayWidth(context) / 1.1,
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-
                   decoration: BoxDecoration(),
-                  // padding: EdgeInsets.all(20.0),
                   duration: const Duration(milliseconds: 300),
                   child: Form(
                     key: _formKey,
@@ -106,9 +100,7 @@ class _LoginPageState extends State<LoginPage> {
     return showDialog<String>(
       context: context,
       builder: (BuildContext context) {
-        var mediaQuery = MediaQuery.of(context);
         return AnimatedContainer(
-            padding: mediaQuery.padding,
             duration: const Duration(milliseconds: 300),
             child: AlertDialog(
               title: Text("Please Contact Your Administrator!"),
@@ -171,7 +163,6 @@ class _LoginPageState extends State<LoginPage> {
                         } else {
                           showAlertDialog(
                               context, "Username or Password Wrong !!");
-                          print(emailadmin + '/n' + pwadmin);
                         }
                       }
                     }),

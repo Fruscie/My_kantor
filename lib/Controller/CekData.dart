@@ -2,20 +2,35 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:my_kantor/Controller/Alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_kantor/Controller/database.dart';
+import 'package:my_kantor/pages/LandingPage.dart';
+import 'package:my_kantor/pages/PageController.dart';
 
 class AuthServices with ChangeNotifier {
   // var nama, email, divisi, nohp, context,jenisKelamin;
   static final dbRef = FirebaseDatabase.instance.reference();
   static FirebaseAuth _auth = FirebaseAuth.instance;
   bool isLogin;
-   void cekState(){
-    if(_auth.currentUser != null){
+
+  User _userFromFirebaseUser(User user) {
+    return (user != null) ? user : null;
+  }
+
+  // auth change user stream
+  Stream<User> get user {
+    return _auth
+        .authStateChanges()
+        //.map((FirebaseUser user) => _userFromFirebaseUser(user));
+        .map(_userFromFirebaseUser);
+  }
+
+  void cekState() {
+    if (_auth.currentUser != null) {
       isLogin = true;
-    }else{
+    } else {
       isLogin = false;
     }
   }
-   
 
   // ignore: cancel_subscriptions
   // var authState = _auth.authStateChanges();
@@ -23,14 +38,15 @@ class AuthServices with ChangeNotifier {
   static Future<void> signIn(context, email, password) async {
     try {
       // ignore: unused_local_variable
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
 
-      User user = FirebaseAuth.instance.currentUser;
+      User user = result.user;
       if (user != null) {
         // User is Login
         // return Navigator.pushReplacementNamed(context, '/Home');
-        // return Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => Home()));
+        return Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PageControl()));
       }
 
       // If the above were null, iterate the provider data
@@ -52,18 +68,21 @@ class AuthServices with ChangeNotifier {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) async {
         await value.user.updateProfile(displayName: nama);
+        // ignore: unused_local_variable
         var tokenUser = value.user.uid;
-        await dbRef.child("myKantor/" + tokenUser.toString() + '/' + nama).set({
-          'Email': email,
-          'Nama': nama,
-          'No Handphone': nohp,
-          'Divisi': divisi,
-          'Jenis Kelamin': jenisKelamin
-          // 'Divisi': divisi,
-        });
+        // await dbRef.child("myKantor/" + tokenUser.toString() + '/' + nama).set({
+        //   'Email': email,
+        //   'Nama': nama,
+        //   'No Handphone': nohp,
+        //   'Divisi': divisi,
+        //   'Jenis Kelamin': jenisKelamin
+        //   // 'Divisi': divisi,
+        // });
+        DatabaseServices.createMember(divisi,
+            nama: nama, noHP: nohp, email: email, jK: jenisKelamin);
         await value.user.reload();
         Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text(tokenUser.toString())));
+            .showSnackBar(SnackBar(content: Text('Register Sukses!!')));
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -76,12 +95,11 @@ class AuthServices with ChangeNotifier {
     }
   }
 
-  static void signOut() {
-    _auth.signOut();
+  static void signOut(BuildContext context) {
+    _auth.signOut().then((value) => Navigator.pop(
+        context, MaterialPageRoute(builder: (context) => LandingPage())));
+    
   }
-
-  static Stream<User> get firebaseUserStream => _auth.authStateChanges();
-  
 }
 
 class SignInSignUpResult {

@@ -37,7 +37,7 @@ class ButtonState extends StatelessWidget {
                 AuthServices.signIn(context, email, password);
               } else if (label == "Sign Up") {
                 AuthServices.signUp(context, email, password,nama,noHp,jenisKelamin,divisi);
-                formKey.currentState.reset();
+                // formKey.currentState.reset();
               }
             }
           }),
