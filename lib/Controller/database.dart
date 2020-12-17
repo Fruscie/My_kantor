@@ -6,7 +6,7 @@ class DatabaseServices {
 
   static Future<void> createMember(String divisi,
       {String nama, String noHP, String jK, String email}) async {
-    await divisiCollection.doc(divisi).update({
+    await divisiCollection.doc(divisi).set({
       nama: [
         {
           'Nama': nama,

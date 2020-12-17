@@ -2,7 +2,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:my_kantor/Controller/Alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_kantor/Controller/database.dart';
 import 'package:my_kantor/pages/LandingPage.dart';
 import 'package:my_kantor/pages/PageController.dart';
 
@@ -64,26 +63,6 @@ class AuthServices with ChangeNotifier {
   static Future<void> signUp(
       context, email, password, nama, nohp, jenisKelamin, divisi) async {
     try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) async {
-        await value.user.updateProfile(displayName: nama);
-        // ignore: unused_local_variable
-        var tokenUser = value.user.uid;
-        // await dbRef.child("myKantor/" + tokenUser.toString() + '/' + nama).set({
-        //   'Email': email,
-        //   'Nama': nama,
-        //   'No Handphone': nohp,
-        //   'Divisi': divisi,
-        //   'Jenis Kelamin': jenisKelamin
-        //   // 'Divisi': divisi,
-        // });
-        DatabaseServices.createMember(divisi,
-            nama: nama, noHP: nohp, email: email, jK: jenisKelamin);
-        await value.user.reload();
-        Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text('Register Sukses!!')));
-      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         showAlertDialog(context, 'The password provided is too weak.');
@@ -98,7 +77,6 @@ class AuthServices with ChangeNotifier {
   static void signOut(BuildContext context) {
     _auth.signOut().then((value) => Navigator.pop(
         context, MaterialPageRoute(builder: (context) => LandingPage())));
-    
   }
 }
 

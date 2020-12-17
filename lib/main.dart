@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
           '/Regist': (context) => Regist(),
           '/Home': (context) => HomePage(null),
           '/Login': (context) => LoginPage(),
+          '/Landing':(context)=>LandingPage()
         },
 
         title: 'MyKantor',

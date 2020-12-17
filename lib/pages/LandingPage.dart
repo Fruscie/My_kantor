@@ -10,8 +10,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final user = Provider.of<User>(context);
-    return user == null? LoginPage() : PageControl();//Home(user);
+    return user == null ? LoginPage() : PageControl(); //Home(user);
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_kantor/Controller/Alert.dart';
 import 'package:my_kantor/Controller/sizes_helpers.dart';
 import 'package:my_kantor/Widget/Button.dart';
-
+import 'package:my_kantor/pages/Regist.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
                 )),
           ),
         ),
-        body:GestureDetector(
+        body: GestureDetector(
             onTap: () {
               FocusScopeNode currentFocus = FocusScope.of(context);
               if (!currentFocus.hasPrimaryFocus) {
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: EdgeInsets.only(top: 5),
                         ),
-                      
+
                         _fieldEmail(),
                         Padding(
                           padding: EdgeInsets.only(top: 15.0),
@@ -93,7 +93,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             )));
-          
   }
 
   dialogpassw() async {
@@ -159,7 +158,10 @@ class _LoginPageState extends State<LoginPage> {
                       if (_formKeys.currentState.validate()) {
                         if ((emailadmin.toString() == "gilanggsb@gmail.com") &&
                             (pwadmin.toString() == "123456")) {
-                          Navigator.pushNamed(context, '/Regist');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Regist()));
                         } else {
                           showAlertDialog(
                               context, "Username or Password Wrong !!");

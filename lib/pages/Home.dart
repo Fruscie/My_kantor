@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            child: Text('HI ' + widget.user.displayName.toString(),style: TextStyle(fontSize:30),))
+            child: Text('Hi ' + widget.user.displayName.toString(),style: TextStyle(fontSize:30),))
         ],
       )))
     ]);

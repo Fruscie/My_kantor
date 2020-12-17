@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_kantor/Widget/Button.dart';
 
+
+
 class Regist extends StatefulWidget {
   @override
   _RegistState createState() => _RegistState();
@@ -21,11 +23,7 @@ class _RegistState extends State<Regist> {
   ];
   final formKey = new GlobalKey<FormState>();
   String nama, divisi, noHp, email, password, gender, jenisKelamin;
-  var namaControl,
-      noHpControl,
-      emailControl,
-      passwordControl = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +35,7 @@ class _RegistState extends State<Regist> {
                 padding: EdgeInsets.only(right: 10.0),
                 child: GestureDetector(
                   onTap: () {
-                    int count = 0;
-                    Navigator.of(context).popUntil((_) => count++ >= 2);
+                    Navigator.of(context).popUntil((route) => route.isFirst);
                   },
                   child: Icon(
                     Icons.exit_to_app_outlined,
@@ -82,7 +79,6 @@ class _RegistState extends State<Regist> {
       TextFormField(
         cursorColor: Theme.of(context).cursorColor,
         maxLength: 20,
-        controller: namaControl,
         decoration: InputDecoration(
           labelText: "Nama : ",
           labelStyle: TextStyle(
@@ -90,8 +86,6 @@ class _RegistState extends State<Regist> {
             color: Color(0xFF6200EE),
           ),
           helperText: "example : ardhito",
-          suffixIcon: IconButton(
-              icon: Icon(Icons.clear), onPressed: () => namaControl.clear()),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF6200EE)),
           ),
@@ -108,7 +102,6 @@ class _RegistState extends State<Regist> {
       TextFormField(
         cursorColor: Theme.of(context).cursorColor,
         maxLength: 20,
-        controller: noHpControl,
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.digitsOnly
@@ -120,8 +113,6 @@ class _RegistState extends State<Regist> {
             color: Color(0xFF6200EE),
           ),
           helperText: "example : 087xxxxx",
-          suffixIcon: IconButton(
-              icon: Icon(Icons.clear), onPressed: () => noHpControl.clear()),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF6200EE)),
           ),
@@ -193,7 +184,6 @@ class _RegistState extends State<Regist> {
       ),
       TextFormField(
         cursorColor: Theme.of(context).cursorColor,
-        controller: emailControl,
         decoration: InputDecoration(
           labelText: "Email : ",
           labelStyle: TextStyle(
@@ -201,8 +191,6 @@ class _RegistState extends State<Regist> {
             color: Color(0xFF6200EE),
           ),
           helperText: "example : test@gmail.com",
-          suffixIcon: IconButton(
-              icon: Icon(Icons.clear), onPressed: () => emailControl.clear()),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF6200EE)),
           ),
@@ -222,16 +210,12 @@ class _RegistState extends State<Regist> {
         obscureText: true,
         cursorColor: Theme.of(context).cursorColor,
         maxLength: 20,
-        controller: passwordControl,
         decoration: InputDecoration(
           labelText: "Password : ",
           labelStyle: TextStyle(
             fontSize: 20,
             color: Color(0xFF6200EE),
           ),
-          suffixIcon: IconButton(
-              icon: Icon(Icons.clear),
-              onPressed: () => passwordControl.clear()),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF6200EE)),
           ),

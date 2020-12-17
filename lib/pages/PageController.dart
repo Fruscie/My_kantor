@@ -5,6 +5,8 @@ import 'package:my_kantor/pages/Home.dart';
 import 'package:provider/provider.dart';
 
 class PageControl extends StatefulWidget {
+
+
   @override
   _PageControlState createState() => _PageControlState();
 }
