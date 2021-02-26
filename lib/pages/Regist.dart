@@ -11,11 +11,8 @@ class Regist extends StatefulWidget {
 
 class _RegistState extends State<Regist> {
   List _listDivisi = [
-    "CEO",
     "Admin",
-    "Accounting",
     "Manager",
-    "HRD",
   ];
   List _listJenisKelamin = [
     "Laki - Laki",

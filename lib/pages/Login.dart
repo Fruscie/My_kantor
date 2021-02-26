@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text("OK"),
                     onPressed: () {
                       if (_formKeys.currentState.validate()) {
-                        if ((emailadmin.toString() == "gilanggsb@gmail.com") &&
+                        if ((emailadmin.toString() == "admin@gmail.com") &&
                             (pwadmin.toString() == "123456")) {
                           Navigator.push(
                               context,
